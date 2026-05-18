@@ -1,0 +1,78 @@
+### model
+model_name_or_path: /root/autodl-tmp/models/Qwen2.5-VL-7B-Instruct-Full
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+
+# ★ 提高 LoRA 秩，增强拟合能力（显存增加<0.5GB）
+lora_rank: 32
+lora_alpha: 64          # alpha=2*rank 是经验法则
+lora_dropout: 0.05
+lora_target: q_proj,v_proj,k_proj,o_proj,gate_proj,up_proj,down_proj  # ★ 扩展目标模块，提升效果
+
+### dataset
+dataset_dir: /root/autodl-tmp/ccac2025_complete
+dataset: ccac2025_task1_train
+
+eval_dataset: ccac2025_task1_valid
+
+### evaluation
+do_eval: true
+eval_strategy: steps
+eval_steps: 50           # 每50步评估一次（根据总步数调整）
+per_device_eval_batch_size: 6
+eval_on_start: true      # 训练前评估一次基线
+
+### training
+learning_rate: 2.0e-4     # ★ rank提高后，学习率适当增大（或保持5e-5也可）
+num_train_epochs: 3
+
+# ★ 核心显存优化：最大化batch size
+per_device_train_batch_size: 3      # ★ 从1→3，显存占用约增加6-8GB，接近24GB上限
+gradient_accumulation_steps: 6      # ★ 调整为6，等效batch=18（如需精确16可改为5，等效15）
+
+lr_scheduler_type: cosine
+warmup_ratio: 0.03          # ★ 改为比例制更灵活（约60 steps）
+max_grad_norm: 1.0
+
+### optimization
+optim: adamw_torch
+bf16: true
+flash_attn: auto
+
+### vision (视觉模型特有配置)
+freeze_vision_tower: true
+freeze_multi_modal_projector: false  # ★ 解冻多模态投影层，允许更好地适应视觉特征（显存增加约2GB）
+
+image_max_pixels: 524288
+image_min_pixels: 1024
+
+video_max_pixels: 65536
+video_min_pixels: 256
+
+### logging (SwanLab 可视化配置)
+logging_steps: 10
+plot_loss: true
+
+### output
+output_dir: saves/qwen2.5-vl-lora-unval
+overwrite_output_dir: true
+
+### misc
+ddp_timeout: 180000000
+include_num_input_tokens_seen: true
+packing: false
+enable_thinking: false
+
+## 性能优化（AutoDL RTX 4090 推荐）
+dataloader_num_workers: 4              # 数据加载并行度（如爆内存请设为0或2）
+group_by_length: true                    # 按长度分组，减少padding
+include_tokens_per_second: true          # 记录每秒处理token数
+
+template: qwen2_vl
+cutoff_len: 2048        # ★ 从1536提升到2048，充分利用4090算力
+max_samples: 100000
+preprocessing_num_workers: 8

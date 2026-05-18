@@ -1,0 +1,86 @@
+### V3-Safe: 多尺度 + 改进辅助模块（保守验证版）
+### 核心目标：验证 detach + 低权重 + 精简模块是否能稳定超越 E1 基线
+### 关键修复：hidden_states.detach() 切断梯度污染；辅助模块仅 7M 参数；Sinkhorn 排列学习
+
+model_name_or_path: /root/autodl-tmp/models/Qwen2.5-VL-7B-Instruct-Full
+template: qwen2_vl
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 32
+lora_alpha: 64
+lora_dropout: 0.15          # 提高 dropout 缓解中文过拟合
+lora_target: q_proj,v_proj,k_proj,o_proj,gate_proj,up_proj,down_proj
+
+### Comic Trainer v3 -- 启用改进模块，但权重极低（先验证稳定性）
+use_comic_trainer: true
+use_contrastive: true
+use_story_module: true
+contrastive_loss_weight: 0.001    # v3: 降至 0.001（原 0.01 导致梯度污染时损害严重）
+story_loss_weight: 0.001          # v3: 降至 0.001
+contrastive_temperature: 0.07
+aux_warmup_steps: 200             # 更长 warmup，让主模型先稳定
+aux_lr_ratio: 0.05                # 辅助模块学习率为主模型 5%
+sinkhorn_iters: 20
+sinkhorn_temp: 0.5
+contrastive_queue_size: 128
+
+### dataset -- 仅 task1 多尺度（E5 多任务联合导致进一步退化，暂不启用）
+dataset_dir: /root/autodl-tmp/LlamaFactory/data/ccac2025_complete
+dataset: ccac2025_task1_train_multiscale
+eval_dataset: ccac2025_task1_valid_multiscale
+
+### evaluation
+do_eval: true
+eval_strategy: steps
+eval_steps: 50
+per_device_eval_batch_size: 2
+eval_on_start: true
+load_best_model_at_end: true
+metric_for_best_model: eval_loss
+greater_is_better: false
+save_strategy: steps
+save_steps: 50
+
+### training
+learning_rate: 2.0e-4
+num_train_epochs: 3
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+max_grad_norm: 1.0
+weight_decay: 0.05                # 提高正则化对抗过拟合
+
+### optimization
+optim: adamw_torch
+bf16: true
+flash_attn: auto
+
+### vision
+freeze_vision_tower: true
+freeze_multi_modal_projector: false
+image_max_pixels: 262144
+image_min_pixels: 1024
+
+### logging
+logging_steps: 10
+plot_loss: true
+
+### output
+output_dir: saves/qwen2.5-vl-lora-V3-safe
+overwrite_output_dir: true
+
+### misc
+ddp_timeout: 180000000
+include_num_input_tokens_seen: true
+packing: false
+enable_thinking: false
+dataloader_num_workers: 4
+group_by_length: true
+cutoff_len: 2048
+max_samples: 100000
+preprocessing_num_workers: 8

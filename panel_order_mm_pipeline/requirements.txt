@@ -1,0 +1,6 @@
+torch>=2.0.0
+torchvision>=0.15.0
+datasets>=2.14.0
+numpy
+Pillow
+tqdm

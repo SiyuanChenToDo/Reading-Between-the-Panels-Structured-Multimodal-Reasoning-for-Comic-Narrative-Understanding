@@ -1,0 +1,84 @@
+### V3-Smoke: 冒烟测试配置（验证训练链路 correctness，不追求收敛）
+### 基于 v3_full，限制 max_steps=50，快速验证无 crash
+
+model_name_or_path: /root/autodl-tmp/models/Qwen2.5-VL-7B-Instruct-Full
+template: qwen2_vl
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 32
+lora_alpha: 64
+lora_dropout: 0.15
+lora_target: q_proj,v_proj,k_proj,o_proj,gate_proj,up_proj,down_proj
+
+### Comic Trainer v3
+use_comic_trainer: true
+use_contrastive: true
+use_story_module: true
+contrastive_loss_weight: 0.001
+story_loss_weight: 0.001
+contrastive_temperature: 0.07
+aux_warmup_steps: 200
+aux_lr_ratio: 0.05
+sinkhorn_iters: 20
+sinkhorn_temp: 0.5
+contrastive_queue_size: 128
+
+### dataset
+dataset_dir: /root/autodl-tmp/LlamaFactory/data/ccac2025_complete
+dataset: ccac2025_task1_train_multiscale_balanced_full
+eval_dataset: ccac2025_task1_valid_multiscale
+
+### evaluation
+do_eval: true
+eval_strategy: steps
+eval_steps: 25
+per_device_eval_batch_size: 2
+eval_on_start: true
+load_best_model_at_end: false
+save_strategy: steps
+save_steps: 25
+
+### training -- 限制步数用于冒烟测试
+learning_rate: 2.0e-4
+num_train_epochs: -1           # 禁用 epoch 模式
+max_steps: 50                  # 只跑 50 步（约 5-10 分钟）
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+max_grad_norm: 1.0
+weight_decay: 0.05
+
+### optimization
+optim: adamw_torch
+bf16: true
+flash_attn: auto
+
+### vision
+freeze_vision_tower: true
+freeze_multi_modal_projector: false
+image_max_pixels: 262144
+image_min_pixels: 1024
+
+### logging
+logging_steps: 5
+plot_loss: true
+
+### output
+output_dir: saves/qwen2.5-vl-lora-V3-smoke
+overwrite_output_dir: true
+
+### misc
+ddp_timeout: 180000000
+include_num_input_tokens_seen: true
+packing: false
+enable_thinking: false
+dataloader_num_workers: 4
+group_by_length: true
+cutoff_len: 2048
+max_samples: 100000
+preprocessing_num_workers: 8

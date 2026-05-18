@@ -1,0 +1,66 @@
+### Task2 Push v2：优化版训练
+### 基于验证最优的 push 数据，增大 LoRA rank 和训练 epoch
+### 数据：ccac2025_task2_train_push (3972条，aug4 + 原生中文5×oversample)
+
+model_name_or_path: /root/autodl-tmp/models/Qwen2.5-VL-7B-Instruct-Full
+template: qwen2_vl
+trust_remote_code: true
+
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 128
+lora_alpha: 256
+lora_dropout: 0.1
+lora_target: q_proj,v_proj,k_proj,o_proj,gate_proj,up_proj,down_proj
+
+dataset_dir: /root/autodl-tmp/LlamaFactory/data/ccac2025_complete
+dataset: ccac2025_task2_train_push
+eval_dataset: ccac2025_task2_valid
+
+do_eval: true
+eval_strategy: steps
+eval_steps: 100
+per_device_eval_batch_size: 1
+eval_on_start: true
+load_best_model_at_end: true
+metric_for_best_model: eval_loss
+greater_is_better: false
+save_strategy: steps
+save_steps: 100
+save_total_limit: 3
+save_only_model: true
+
+learning_rate: 1.5e-5
+num_train_epochs: 3
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 4
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+max_grad_norm: 0.5
+weight_decay: 0.02
+
+optim: adamw_torch
+bf16: true
+flash_attn: auto
+
+freeze_vision_tower: true
+freeze_multi_modal_projector: false
+image_max_pixels: 262144
+image_min_pixels: 1024
+
+logging_steps: 10
+plot_loss: true
+
+output_dir: saves/qwen2.5-vl-lora-task2-push-v2
+overwrite_output_dir: true
+
+ddp_timeout: 180000000
+include_num_input_tokens_seen: true
+packing: false
+enable_thinking: false
+dataloader_num_workers: 8
+group_by_length: false
+cutoff_len: 3072
+max_samples: 100000
+preprocessing_num_workers: 2

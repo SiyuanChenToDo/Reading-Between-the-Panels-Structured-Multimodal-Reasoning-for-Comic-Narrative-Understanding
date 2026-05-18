@@ -1,0 +1,67 @@
+### Task2 最大化：与 valid 同模板（train_all_aug4 CoT + 四格灰格）
+### 数据文件 train_task2_max.json：
+###   默认 = aug4 全量；跑完 task2/build_task2_max_dataset.py（全量 EN→ZH）后
+###   会变为 base(2436)+译中(2052)≈4488 条，中文监督大增。
+### 选点：勿迷信 eval_loss，训练结束后用 evaluate_and_test/pick_best_task2_ckpt.py 按 ROUGE 选 checkpoint。
+
+model_name_or_path: /root/autodl-tmp/models/Qwen2.5-VL-7B-Instruct-Full
+template: qwen2_vl
+trust_remote_code: true
+
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 64
+lora_alpha: 128
+lora_dropout: 0.1
+lora_target: q_proj,v_proj,k_proj,o_proj,gate_proj,up_proj,down_proj
+
+dataset_dir: /root/autodl-tmp/LlamaFactory/data/ccac2025_complete
+dataset: ccac2025_task2_train_max
+eval_dataset: ccac2025_task2_valid
+
+do_eval: true
+eval_strategy: steps
+eval_steps: 25
+per_device_eval_batch_size: 1
+eval_on_start: true
+load_best_model_at_end: true
+metric_for_best_model: eval_loss
+greater_is_better: false
+save_strategy: steps
+save_steps: 25
+save_total_limit: 5
+
+learning_rate: 2e-5
+num_train_epochs: 1
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 8
+lr_scheduler_type: cosine
+warmup_ratio: 0.06
+max_grad_norm: 0.5
+weight_decay: 0.02
+
+optim: adamw_torch
+bf16: true
+flash_attn: auto
+
+freeze_vision_tower: true
+freeze_multi_modal_projector: false
+image_max_pixels: 262144
+image_min_pixels: 1024
+
+logging_steps: 10
+plot_loss: true
+
+output_dir: saves/qwen2.5-vl-lora-task2-max
+overwrite_output_dir: true
+
+ddp_timeout: 180000000
+include_num_input_tokens_seen: true
+packing: false
+enable_thinking: false
+dataloader_num_workers: 4
+group_by_length: false
+cutoff_len: 3072
+max_samples: 100000
+preprocessing_num_workers: 1

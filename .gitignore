@@ -1,0 +1,75 @@
+# === Downloaded Large Model Weights ===
+models/
+qwen2.5-vl-lora-unval/
+
+# === Baselines & Evaluation (excluded per requirement) ===
+baseline/
+baseline_task1_scripts/
+evaluate_and_test/
+evaluation_results/
+
+# === LlamaFactory Training Outputs ===
+LlamaFactory/saves/
+LlamaFactory/logs/
+LlamaFactory/swanlog/
+LlamaFactory/llamaboard_cache/
+LlamaFactory/.ipynb_checkpoints/
+LlamaFactory/data/ccac2025_complete.tar.gz
+
+# === Datasets (large files excluded) ===
+LlamaFactory/data/ccac2025_complete/**/images/
+LlamaFactory/data/ccac2025_complete/**/_split/
+LlamaFactory/data/ccac2025_complete/**/synth_split/
+LlamaFactory/data/ccac2025_complete/**/*.jpg
+LlamaFactory/data/ccac2025_complete/**/*.png
+panel_order_mm_pipeline/data_e2e/
+panel_order_mm_pipeline/data_split/
+panel_order_mm_pipeline/outputs/*.pt
+panel_order_mm_pipeline/outputs/*.pth
+panel_order_mm_pipeline/outputs/*.ckpt
+panel_order_mm_pipeline/outputs/*/*.pt
+panel_order_mm_pipeline/outputs/*/*.pth
+panel_order_mm_pipeline/outputs/*/*.ckpt
+
+# === System & IDE Files ===
+.archive/
+.autodl/
+.claude/
+.cursor/
+.vscode/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.DS_Store
+Thumbs.db
+
+# === Logs & Temporary Files ===
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+
+# === Root-level non-essential files ===
+GLOBAL_RESEARCH_CHARTER.md
+PROGRESS.md
+review.txt
+review_final.txt
+review_independent.txt
+eval_ckpt*.log
+evaluation_results_sota*.json
+monitor_rerank.sh
+symbol_and_terminology_audit.md
+task2_decode_sweep_resumable.log
+task2_decode_sweep_v2.log
+task2_joint_transfer_v1_train.log
+task2_max_v2_train.log
+task2_push_v2_train.log
+task2_style_aligned_train.log
+translate_en_zh.log
+模块与创新总结.md
+dataset_revision_for_paper.tex
+
+# === Git Backups ===
+.git_backup_*/

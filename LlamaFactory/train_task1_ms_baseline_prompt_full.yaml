@@ -1,0 +1,85 @@
+### Ablation: Multiscale data + Baseline prompt + SCPM + PCL
+### Purpose: Test combined auxiliary modules under simple prompt
+
+model_name_or_path: /root/autodl-tmp/models/Qwen2.5-VL-7B-Instruct-Full
+template: qwen2_vl
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 32
+lora_alpha: 64
+lora_dropout: 0.15
+lora_target: q_proj,v_proj,k_proj,o_proj,gate_proj,up_proj,down_proj
+
+### Comic Trainer v3 -- enable both Story and Contrastive modules
+use_comic_trainer: true
+use_contrastive: true
+use_story_module: true
+contrastive_loss_weight: 0.001
+story_loss_weight: 0.001
+contrastive_temperature: 0.07
+aux_warmup_steps: 200
+aux_lr_ratio: 0.05
+sinkhorn_iters: 20
+sinkhorn_temp: 0.5
+contrastive_queue_size: 128
+
+### dataset -- multiscale images (5 per sample) but baseline prompt format
+dataset_dir: /root/autodl-tmp/LlamaFactory/data/ccac2025_complete
+dataset: ccac2025_task1_train_multiscale_baseline_prompt
+eval_dataset: ccac2025_task1_valid_multiscale_baseline_prompt
+
+### evaluation
+do_eval: true
+eval_strategy: steps
+eval_steps: 50
+per_device_eval_batch_size: 2
+eval_on_start: true
+load_best_model_at_end: true
+metric_for_best_model: eval_loss
+greater_is_better: false
+save_strategy: steps
+save_steps: 50
+
+### training
+learning_rate: 2.0e-4
+num_train_epochs: 3
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+max_grad_norm: 1.0
+weight_decay: 0.05
+
+### optimization
+optim: adamw_torch
+bf16: true
+flash_attn: auto
+
+### vision
+freeze_vision_tower: true
+freeze_multi_modal_projector: false
+image_max_pixels: 262144
+image_min_pixels: 1024
+
+### logging
+logging_steps: 10
+plot_loss: true
+
+### output
+output_dir: saves/qwen2.5-vl-lora-MS-BaselinePrompt-Full
+overwrite_output_dir: true
+
+### misc
+ddp_timeout: 180000000
+include_num_input_tokens_seen: true
+packing: false
+enable_thinking: false
+dataloader_num_workers: 4
+group_by_length: true
+cutoff_len: 2048
+max_samples: 100000
+preprocessing_num_workers: 8

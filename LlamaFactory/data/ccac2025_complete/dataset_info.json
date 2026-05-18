@@ -1,0 +1,388 @@
+{
+  "_comment": "CCAC2025数据集配置 - LlamaFactory ShareGPT格式",
+  "_note": "数据文件使用conversations字段，内部使用from和content",
+  "=== Task 1: 单格图像描述 ===": "",
+  "ccac2025_task1_train": {
+    "file_name": "task1/train/train.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_train_zh": {
+    "file_name": "task1/train/train_zh.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_train_en": {
+    "file_name": "task1/train/train_en.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_valid": {
+    "file_name": "task1/valid/valid.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_valid_zh": {
+    "file_name": "task1/valid/valid_zh.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_valid_en": {
+    "file_name": "task1/valid/valid_en.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_test": {
+    "file_name": "task1/test/test.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_test_zh": {
+    "file_name": "task1/test/test_zh.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_test_en": {
+    "file_name": "task1/test/test_en.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "=== Task 2: 四格漫画上下文推理 ===": "",
+  "=== 特点: 平衡数据(中英1:1) + CoT格式 + 分割图片(4张/样本) ===": "",
+  "ccac2025_task2_train": {
+    "file_name": "task2/train/train.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    },
+    "description": "平衡数据+CoT+分割图: 中文1920条(重复5x) + 英文2052条 = 3972条"
+  },
+  "ccac2025_task2_train_zh": {
+    "file_name": "task2/train/train_zh.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_train_en": {
+    "file_name": "task2/train/train_en.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_valid": {
+    "file_name": "task2/valid/valid.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_valid_zh": {
+    "file_name": "task2/valid/valid_zh.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_valid_en": {
+    "file_name": "task2/valid/valid_en.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_test": {
+    "file_name": "task2/test/test.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_test_zh": {
+    "file_name": "task2/test/test_zh.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_test_en": {
+    "file_name": "task2/test/test_en.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_train_multiscale": {
+    "file_name": "task1/train/train_multiscale.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_valid_multiscale": {
+    "file_name": "task1/valid/valid_multiscale.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_test_multiscale": {
+    "file_name": "task1/test/test_multiscale.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_joint_train": {
+    "file_name": "joint/train_joint.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_train_aug4_all": {
+    "file_name": "task2/train/train_all_aug4.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_train_aug4_zh": {
+    "file_name": "task2/train/train_zh_aug4.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_train_aug4_en": {
+    "file_name": "task2/train/train_en_aug4.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_train_max": {
+    "file_name": "task2/train/train_task2_max.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_train_push": {
+    "file_name": "task2/train/train_task2_push.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_train_push_hint": {
+    "file_name": "task2/train/train_task2_push_hint.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_train_simple": {
+    "file_name": "task2/train/train_simple_all.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_valid_simple": {
+    "file_name": "task2/valid/valid_simple.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_train_multiscale_balanced": {
+    "file_name": "task1/train/train_multiscale_balanced.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_valid_multiscale_balanced": {
+    "file_name": "task1/valid/valid_multiscale.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_train_multiscale_balanced_full": {
+    "file_name": "task1/train/train_multiscale_balanced_full.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task1_train_multiscale_baseline_prompt": {
+    "file_name": "task1/train/train_multiscale_baseline_prompt.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    },
+    "description": "Multiscale 5张图 + 单图Baseline英文Prompt (用于消融SCPM/PCL是否依赖MSCE prompt设计)"
+  },
+  "ccac2025_task1_valid_multiscale_baseline_prompt": {
+    "file_name": "task1/valid/valid_multiscale_baseline_prompt.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_train_push_plus": {
+    "file_name": "task2/train/train_task2_push_plus.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_joint_v2_train": {
+    "file_name": "joint/train_joint_v2.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    },
+    "description": "Task1 multiscale_balanced_full (3699) + Task2 max (4488) = 8187条联合训练"
+  },
+  "ccac2025_task2_train_style": {
+    "file_name": "task2/train/train_task2_style_aligned.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    },
+    "description": "Task2 max + prompt风格引导对齐验证集风格"
+  },
+  "ccac2025_task2_valid_style": {
+    "file_name": "task2/valid/valid_style.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    },
+    "description": "Task2 valid + prompt风格引导"
+  },
+  "ccac2025_task2_valid_en_style": {
+    "file_name": "task2/valid/valid_en_style.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_valid_zh_style": {
+    "file_name": "task2/valid/valid_zh_style.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_train_enhanced": {
+    "file_name": "task2/train/train_task2_enhanced.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_valid_enhanced": {
+    "file_name": "task2/valid/valid_enhanced.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_train_multiscale": {
+    "file_name": "task2/train/train_task2_multiscale.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_valid_multiscale": {
+    "file_name": "task2/valid/valid_multiscale.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_train_v3": {
+    "file_name": "task2/train/train_task2_v3.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  },
+  "ccac2025_task2_valid_v3": {
+    "file_name": "task2/valid/valid_v3.json",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations",
+      "images": "images"
+    }
+  }
+}
