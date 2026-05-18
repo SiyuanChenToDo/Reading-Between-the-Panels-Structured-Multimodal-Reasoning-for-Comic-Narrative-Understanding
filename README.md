@@ -186,7 +186,7 @@ Our method achieves substantial gains over the same-backbone single-image settin
 
 ```bash
 # Clone the repository
-git clone https://github.com/SiyuanChenToDo/Reading-Between-the-Panels-Structured-Multimodal-Reasoning-for-Comic-Narrative-Understanding.git
+# git clone <anonymous-repo-url> (available upon acceptance)
 cd Reading-Between-the-Panels-Structured-Multimodal-Reasoning-for-Comic-Narrative-Understanding
 
 # Install baseline dependencies
@@ -248,7 +248,7 @@ cl_loss = PanelContrastiveLoss(hidden_dim=3584, proj_dim=128)
 If you find this work useful, please consider citing:
 
 ```bibtex
-@inproceedings{chen2026reading,
+@inproceedings{anonymous2026reading,
   title={Reading Between the Panels: Structured Multimodal Reasoning for Comic Narrative Understanding},
   booktitle={NLPCC},
   year={2026}
